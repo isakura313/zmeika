@@ -1,0 +1,68 @@
+import pygame, sys, random
+
+WINDOW_HEIGHT = 500
+WINDOW_WIDTH = 500
+
+DISPLAY = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+UP = (0, -1)
+DOWN = (0, 1)
+LEFT = (-1, 0)
+RIGHT = (1, 0)
+
+SPEED = 10
+SIZE = 20
+FPS = 10
+fpsClock = pygame.time.Clock()
+
+def make_new_apple():
+    apple_x = random.randint(0, WINDOW_WIDTH - SIZE)
+    apple_y = random.randint(0, WINDOW_HEIGHT - SIZE)
+    apple = pygame.Rect(apple_x, apple_y, SIZE, SIZE)
+    return apple
+
+def add_part_of_snake(snake, snake_tail, head):
+    update = [-SIZE * x for x in head]
+    if len(snake_tail) == 0:
+        snake_tail.append(snake.move(update[0], update[1]))
+    else:
+        snake_tail.append(snake_tail[len(snake_tail) - 1].move(update[0], update[1]))
+
+def draw_snake(snake, snake_tail, head):
+    tmp = snake.move(0, 0)
+
+
+
+def gaming():
+    snake = pygame.Rect(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, SIZE, SIZE)
+    snake_tail = []
+    head = UP
+    apple = make_new_apple() #здесь создавалось яблочко
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    head = LEFT
+                if event.key == pygame.K_RIGHT:
+                    head = RIGHT
+                if event.key == pygame.K_UP:
+                    head = UP
+                if event.key == pygame.K_DOWN:
+                    head = DOWN
+
+        if snake.bottom > WINDOW_HEIGHT or snake.top < 0 or snake.left < 0 or snake.right > WINDOW_WIDTH:
+            return
+        if snake.colliderect(apple):
+            add_part_of_snake(snake, snake_tail, head)
+            apple = make_new_apple()
+        DISPLAY.fill((0, 0, 0))
+        speed_head = [SPEED * x for x in head]
+        snake.move_ip(speed_head[0], speed_head[1])
+        draw_snake(snake, snake_tail, head)
+        pygame.draw.rect(DISPLAY, (255, 0, 0), apple)
+        pygame.display.update()
+        fpsClock.tick(FPS)
+gaming()
+pygame.quit()
+sys.exit()
