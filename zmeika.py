@@ -29,7 +29,17 @@ def add_part_of_snake(snake, snake_tail, head):
 
 def draw_snake(snake, snake_tail, head):
     tmp = snake.move(0, 0)
-
+    head_speed = [SPEED * x  for x in head]
+    snake.move_ip(head_speed[0], head_speed[1])
+    pygame.draw.rect(DISPLAY, (0, 255, 0), snake)
+    if len(snake_tail) == 0:
+        return
+    pygame.draw.rect(DISPLAY, (0,0,0),snake_tail[len(snake_tail) -1])
+    for i in range(0, len(snake_tail) -1):
+        snake_tail[len(snake_tail) -1 - i] = snake_tail[len(snake_tail) - 2 -i]
+        pygame.draw.rect(DISPLAY, (0,0,255), snake_tail[len(snake_tail) - 1 -i])
+    snake_tail[0] = tmp
+    pygame.draw.rect(DISPLAY, (0,0, 255), snake_tail[0])
 
 
 def gaming():
@@ -42,13 +52,13 @@ def gaming():
             if event.type == pygame.QUIT:
                 return
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_LEFT and head != RIGHT:
                     head = LEFT
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT and head != LEFT:
                     head = RIGHT
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_UP and head != DOWN:
                     head = UP
-                if event.key == pygame.K_DOWN:
+                if event.key == pygame.K_DOWN and head != UP:
                     head = DOWN
 
         if snake.bottom > WINDOW_HEIGHT or snake.top < 0 or snake.left < 0 or snake.right > WINDOW_WIDTH:
