@@ -9,7 +9,7 @@ DOWN = (0, 1)
 LEFT = (-1, 0)
 RIGHT = (1, 0)
 
-SPEED = 10
+SPEED = 4
 SIZE = 20
 FPS = 10
 fpsClock = pygame.time.Clock()
@@ -35,11 +35,12 @@ def draw_snake(snake, snake_tail, head):
     if len(snake_tail) == 0:
         return
     pygame.draw.rect(DISPLAY, (0,0,0),snake_tail[len(snake_tail) -1])
+    colors = [(0, 255, 0), (255, 0, 0), (0,0,255), (100, 100, 0)]
     for i in range(0, len(snake_tail) -1):
         snake_tail[len(snake_tail) -1 - i] = snake_tail[len(snake_tail) - 2 -i]
         pygame.draw.rect(DISPLAY, (0,0,255), snake_tail[len(snake_tail) - 1 -i])
     snake_tail[0] = tmp
-    pygame.draw.rect(DISPLAY, (0,0, 255), snake_tail[0])
+    pygame.draw.rect(DISPLAY, random.choice(colors), snake_tail[0])
 
 
 def gaming():
