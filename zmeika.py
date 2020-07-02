@@ -13,6 +13,8 @@ SPEED = 4
 SIZE = 20
 FPS = 10
 fpsClock = pygame.time.Clock()
+pygame.mixer.init()
+pygame.mixer.music.load('music1.mp3')
 
 def make_new_apple():
     apple_x = random.randint(0, WINDOW_WIDTH - SIZE)
@@ -34,8 +36,8 @@ def draw_snake(snake, snake_tail, head):
     pygame.draw.rect(DISPLAY, (0, 255, 0), snake)
     if len(snake_tail) == 0:
         return
-    pygame.draw.rect(DISPLAY, (0,0,0),snake_tail[len(snake_tail) -1])
-    colors = [(0, 255, 0), (255, 0, 0), (0,0,255), (100, 100, 0)]
+    pygame.draw.rect(DISPLAY, (0, 0, 0),snake_tail[len(snake_tail) -1])
+    colors = [(0, 255, 0), (255, 0, 0), (0, 0, 255), (100, 100, 0)]
     for i in range(0, len(snake_tail) -1):
         snake_tail[len(snake_tail) -1 - i] = snake_tail[len(snake_tail) - 2 -i]
         pygame.draw.rect(DISPLAY, (0,0,255), snake_tail[len(snake_tail) - 1 -i])
@@ -44,6 +46,7 @@ def draw_snake(snake, snake_tail, head):
 
 
 def gaming():
+    pygame.mixer.music.play(loops=-1)
     snake = pygame.Rect(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, SIZE, SIZE)
     snake_tail = []
     head = UP
