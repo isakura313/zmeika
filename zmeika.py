@@ -15,10 +15,12 @@ FPS = 10
 fpsClock = pygame.time.Clock()
 pygame.mixer.init()
 pygame.mixer.music.load('music1.mp3')
+apple_image = pygame.image.load('apple.png')
+
 
 def make_new_apple():
-    apple_x = random.randint(0, WINDOW_WIDTH - SIZE)
-    apple_y = random.randint(0, WINDOW_HEIGHT - SIZE)
+    apple_x = random.randint(0, WINDOW_WIDTH - SIZE) # определение позиции
+    apple_y = random.randint(0, WINDOW_HEIGHT - SIZE) # определение позиции
     apple = pygame.Rect(apple_x, apple_y, SIZE, SIZE)
     return apple
 
@@ -46,6 +48,7 @@ def draw_snake(snake, snake_tail, head):
 
 
 def gaming():
+    count = 0
     pygame.mixer.music.play(loops=-1)
     snake = pygame.Rect(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, SIZE, SIZE)
     snake_tail = []
@@ -68,6 +71,8 @@ def gaming():
         if snake.bottom > WINDOW_HEIGHT or snake.top < 0 or snake.left < 0 or snake.right > WINDOW_WIDTH:
             return
         if snake.colliderect(apple):
+            count += 1
+            print(count)
             add_part_of_snake(snake, snake_tail, head)
             apple = make_new_apple()
         DISPLAY.fill((0, 0, 0))
