@@ -48,8 +48,9 @@ def draw_snake(snake, snake_tail, head):
 
 
 def gaming():
+    """ игра начинается здесь"""
     count = 0
-    pygame.font.init()
+    pygame.font.init() #инициализация работы со шрифтами
     font = pygame.font.Font('Press.ttf', 32)
 
     pygame.mixer.music.play(loops=-1)
@@ -74,9 +75,12 @@ def gaming():
         if snake.bottom > WINDOW_HEIGHT or snake.top < 0 or snake.left < 0 or snake.right > WINDOW_WIDTH:
             return
         if snake.colliderect(apple):
+            #это когда змея сьедает яблоко
             count += 1
             text = font.render(str(count), True, (0, 255, 0), (0, 0, 255))
-            countRect = text.get_rect()
+            print(count) #чтобы удосстовериться что все работает
+            countRect = pygame.Rect(70, 20, 0 ,0 ) #создание нашего прямоугольника
+            # countRect.center = (100, 100)
             DISPLAY.blit(text, countRect)
             add_part_of_snake(snake, snake_tail, head)
             apple = make_new_apple()
