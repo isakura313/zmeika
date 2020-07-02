@@ -49,6 +49,7 @@ def draw_snake(snake, snake_tail, head):
 
 def gaming():
     count = 0
+    pygame.font.init()
     font = pygame.font.Font('Press.ttf', 32)
 
     pygame.mixer.music.play(loops=-1)
@@ -74,7 +75,7 @@ def gaming():
             return
         if snake.colliderect(apple):
             count += 1
-            text = font.render(count, True, (0, 255, 0), (0, 0, 255))
+            text = font.render(str(count), True, (0, 255, 0), (0, 0, 255))
             countRect = text.get_rect()
             DISPLAY.blit(text, countRect)
             add_part_of_snake(snake, snake_tail, head)
