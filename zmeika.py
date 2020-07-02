@@ -49,6 +49,9 @@ def draw_snake(snake, snake_tail, head):
 
 def gaming():
     count = 0
+    font = pygame.font.Font('Press.ttf', 32)
+    text = font.render(count, True, (0, 255, 0), (0, 0, 255))
+    countRect = text.get_rect()
     pygame.mixer.music.play(loops=-1)
     snake = pygame.Rect(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, SIZE, SIZE)
     snake_tail = []
