@@ -15,7 +15,7 @@ FPS = 10
 fpsClock = pygame.time.Clock()
 pygame.mixer.init()
 pygame.mixer.music.load('music1.mp3')
-apple_image = pygame.image.load('apple.png')
+
 
 
 def make_new_apple():
